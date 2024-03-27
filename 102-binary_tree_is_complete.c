@@ -2,47 +2,48 @@
 #include <stdlib.h>
 
 /**
+ * count_nodes - Counts the total number of nodes in a binary tree
+ * @tree: Pointer to the root node of the tree
+ *
+ * Return: The total number of nodes in the tree
+ */
+int count_nodes(const binary_tree_t *tree)
+{
+	if (tree == NULL)
+		return (0);
+
+	return (count_nodes(tree->left) + count_nodes(tree->right) + 1);
+}
+
+/**
+ * is_complete_recursive - Recursively checks if a binary tree is complete
+ * @tree: Pointer to the root node of the tree
+ * @index: Index of the current node in a complete binary tree
+ * @node_count: Total number of nodes in the tree
+ *
+ * Return: 1 if the tree is complete, 0 otherwise
+ */
+int is_complete_recursive(const binary_tree_t *tree, int index, int node_count)
+{
+	if (tree == NULL)
+		return (1);
+
+	if (index >= node_count)
+		return (0);
+
+	return (is_complete_recursive(tree->left, 2 * index + 1, node_count) &&
+			is_complete_recursive(tree->right, 2 * index + 2, node_count));
+}
+
+/**
  * binary_tree_is_complete - Checks if a binary tree is complete
- * @tree: Pointer to the root node of the tree to check
+ * @tree: Pointer to the root node of the tree
  *
  * Return: 1 if the tree is complete, 0 otherwise
  */
 int binary_tree_is_complete(const binary_tree_t *tree)
 {
-	if (tree == NULL)
-		return (0);
+	int node_count = count_nodes(tree);
 
-	/* Create a queue to perform level order traversal */
-	binary_tree_t **queue = malloc(sizeof(binary_tree_t *)
-	* binary_tree_size(tree));
-	size_t front = 0, rear = 0;
-	int flag = 0; /* To indicate if a non-full node is encountered */
-
-	if (queue == NULL)
-		return (0);
-
-	queue[rear++] = (binary_tree_t *)tree;
-
-	while (front < rear)
-	{
-		binary_tree_t *current = queue[front++];
-
-		/* If a non-full node is encountered after a full node, return false */
-		if (current == NULL)
-			flag = 1;
-		else
-		{
-			if (flag)
-			{
-				free(queue);
-				return (0);
-			}
-
-			queue[rear++] = current->left;
-			queue[rear++] = current->right;
-		}
-	}
-
-	free(queue);
-	return (1);
+	return (is_complete_recursive(tree, 0, node_count));
 }
