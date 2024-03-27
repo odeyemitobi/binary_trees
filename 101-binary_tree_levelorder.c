@@ -1,4 +1,5 @@
 #include "binary_trees.h"
+#include <stdlib.h>
 
 /**
  * binary_tree_size - Measures the size of a binary tree
@@ -33,8 +34,8 @@ void binary_tree_levelorder(const binary_tree_t *tree, void (*func)(int))
 	if (tree == NULL || func == NULL)
 		return;
 
-	binary_tree_t **queue = malloc(sizeof(binary_tree_t *) *
-	binary_tree_size(tree));
+	binary_tree_t **queue = malloc(sizeof(binary_tree_t *)
+	* binary_tree_size(tree));
 	size_t front = 0, rear = 0;
 
 	if (queue == NULL)
