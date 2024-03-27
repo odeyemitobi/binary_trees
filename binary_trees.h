@@ -1,6 +1,8 @@
 #ifndef _BINARY_TREES_H_
 #define _BINARY_TREES_H_
 #include <stddef.h>
+#include <limits.h>
+#include <stdlib.h>
 
 /**
  * struct binary_tree_s - Binary tree node
@@ -20,6 +22,7 @@ struct binary_tree_s
 
 typedef struct binary_tree_s binary_tree_t;
 typedef struct binary_tree_s bst_t;
+typedef struct binary_tree_s avl_t;
 
 /* Function prototypes */
 binary_tree_t *binary_tree_node(binary_tree_t *parent, int value);
@@ -56,5 +59,7 @@ bst_t *array_to_bst(int *array, size_t size);
 bst_t *bst_search(const bst_t *tree, int value);
 bst_t *bst_remove(bst_t *root, int value);
 bst_t *bst_min_val(bst_t *root);
+int binary_tree_is_avl(const binary_tree_t *tree);
+int btia_helper(const binary_tree_t *tree, int min, int max);
 
 #endif /* _BINARY_TREES_H_ */
