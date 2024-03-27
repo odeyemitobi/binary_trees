@@ -44,5 +44,6 @@ binary_tree_t *binary_trees_ancestor(const binary_tree_t *first,
 const binary_tree_t *second);
 void binary_tree_levelorder(const binary_tree_t *tree, void (*func)(int));
 void btlo_helper(const binary_tree_t *tree, void (*func)(int), size_t level);
+int binary_tree_is_complete(const binary_tree_t *tree);
 
 #endif /* _BINARY_TREES_H_ */
